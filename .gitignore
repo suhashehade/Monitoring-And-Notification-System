@@ -1,0 +1,12 @@
+# IDE / JetBrains Rider / Rider .idea folders
+.idea/
+*.idea/
+**/.idea/
+
+# Build outputs (bin & obj)
+[Bb]in/
+[Oo]bj/
+
+# SQL Server Management Studio / Temporary files
+*.ssmssln
+*.ssmssqlproj
