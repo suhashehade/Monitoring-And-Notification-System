@@ -1,4 +1,5 @@
-using Stat_Collector_Service.Models;
+using Messaging;
+using Shared.Models;
 using Stat_Collector_Service.StatCollectProviders.Interfaces;
 
 namespace Stat_Collector_Service;
@@ -6,7 +7,8 @@ namespace Stat_Collector_Service;
 public class Worker(
     ILogger<Worker> logger,
     ISystemStatsProvider statProvider,
-    IConfiguration configuration)
+    IConfiguration configuration, 
+    IMessagePublisher messagePublisher)
     : BackgroundService
 {
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
@@ -16,28 +18,30 @@ public class Worker(
         
         while (!stoppingToken.IsCancellationRequested)
         {
-            if (logger.IsEnabled(LogLevel.Information))
+            try
             {
-                logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
+                if (logger.IsEnabled(LogLevel.Information))
+                {
+                    logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
+                }
+
+                var serverStatistics = new ServerStatistics()
+                {
+                    AvailableMemory = statProvider.GetAvailableMemory(),
+                    CpuUsage = statProvider.GetCpuUsage(),
+                    MemoryUsage = statProvider.GetMemoryUsage(),
+                    Timestamp = DateTime.UtcNow
+                };
+                await messagePublisher.PublishAsync($"ServerStatistics.{serverIdentifier}", serverStatistics);
             }
-            var serverStatistics = new ServerStatistics()
+            catch (Exception e)
             {
-                AvailableMemory = statProvider.GetAvailableMemory(),
-                CpuUsage = statProvider.GetCpuUsage(),
-                MemoryUsage = statProvider.GetMemoryUsage(),
-                Timestamp =  DateTime.UtcNow
-            };
-            
-            logger.LogInformation(
-                "[{Server}] Stats collected at {Time}: CPU: {Cpu}%, Mem Usage: {Mem}MB", 
-                serverIdentifier, 
-                serverStatistics.Timestamp, 
-                Math.Round(serverStatistics.CpuUsage, 2), 
-                Math.Round(serverStatistics.MemoryUsage, 2));
-            
-            // TODO: Connect with message queue abstract
-            
-            await Task.Delay(TimeSpan.FromSeconds(intervalSeconds), stoppingToken);
+                logger.LogError(e, "An exception occurred");
+            }
+            finally
+            {
+                await Task.Delay(TimeSpan.FromSeconds(intervalSeconds), stoppingToken);
+            }
         }
     }
 }

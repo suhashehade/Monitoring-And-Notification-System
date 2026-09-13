@@ -1,3 +1,4 @@
+using Messaging;
 using Stat_Collector_Service.StatCollectProviders;
 using Stat_Collector_Service.StatCollectProviders.Interfaces;
 
@@ -8,6 +9,7 @@ public static class Program {
    {
       var builder = Host.CreateApplicationBuilder(args);
       builder.Services.AddSingleton<ISystemStatsProvider, WindowsStatsProvider>();
+      builder.Services.AddSingleton<IMessagePublisher, RabbitMq>();
       builder.Services.AddHostedService<Worker>();
       var host = builder.Build();
       host.Run();

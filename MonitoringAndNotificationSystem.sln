@@ -2,6 +2,10 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stat-Collector-Service", "Stat-Collector-Service\Stat-Collector-Service.csproj", "{163F8132-CABD-4487-8891-91CE32308C4A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Messaging.Abstractions", "Messaging.Abstractions\Messaging.Abstractions.csproj", "{DCD36779-AF11-4214-A50D-8ED6E68C06DA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shared", "Shared\Shared.csproj", "{1BB602B9-BCA1-4BFA-B582-0CAC98FAC590}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,5 +16,13 @@ Global
 		{163F8132-CABD-4487-8891-91CE32308C4A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{163F8132-CABD-4487-8891-91CE32308C4A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{163F8132-CABD-4487-8891-91CE32308C4A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DCD36779-AF11-4214-A50D-8ED6E68C06DA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DCD36779-AF11-4214-A50D-8ED6E68C06DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DCD36779-AF11-4214-A50D-8ED6E68C06DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DCD36779-AF11-4214-A50D-8ED6E68C06DA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1BB602B9-BCA1-4BFA-B582-0CAC98FAC590}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1BB602B9-BCA1-4BFA-B582-0CAC98FAC590}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1BB602B9-BCA1-4BFA-B582-0CAC98FAC590}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1BB602B9-BCA1-4BFA-B582-0CAC98FAC590}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

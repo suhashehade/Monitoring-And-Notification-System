@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Threading;
-using Stat_Collector_Service.Models;
 using Stat_Collector_Service.StatCollectProviders.Interfaces;
 
 namespace Stat_Collector_Service.StatCollectProviders;
