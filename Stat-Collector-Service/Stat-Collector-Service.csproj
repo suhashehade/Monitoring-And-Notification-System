@@ -15,6 +15,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\Messaging.Abstractions\Messaging.Abstractions.csproj" />
+      <ProjectReference Include="..\Messaging.RabbitMQ\Messaging.RabbitMQ.csproj" />
       <ProjectReference Include="..\Shared\Shared.csproj" />
     </ItemGroup>
 </Project>

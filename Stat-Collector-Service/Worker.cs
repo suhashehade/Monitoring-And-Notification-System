@@ -27,6 +27,7 @@ public class Worker(
 
                 var serverStatistics = new ServerStatistics()
                 {
+                    ServerIdentifier =  serverIdentifier,
                     AvailableMemory = statProvider.GetAvailableMemory(),
                     CpuUsage = statProvider.GetCpuUsage(),
                     MemoryUsage = statProvider.GetMemoryUsage(),
