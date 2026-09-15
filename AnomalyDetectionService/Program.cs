@@ -10,6 +10,7 @@ public static class Program
     {
         var builder = WebApplication.CreateBuilder(args);
         builder.Services.AddSingleton<IMessageConsumer, RabbitMqConsumer>();
+        builder.Services.AddSingleton<IStatisticsRepository, MongoDbRepository>();
         
         var app = builder.Build();
        
