@@ -25,11 +25,13 @@ public static class Program
         var persistence = app.Services.GetRequiredService<IStatisticsRepository>();
         var hubContext = app.Services.GetRequiredService<IHubContext<AlertsHub>>();
         var previousReadings = new ConcurrentDictionary<string, ServerStatistics>();
-
+        
         var memoryAnomalyThreshold = builder.Configuration.GetValue<double>("AnomalyDetectionConfig:MemoryUsageAnomalyThresholdPercentage");
         var cpuAnomalyThreshold = builder.Configuration.GetValue<double>("AnomalyDetectionConfig:CpuUsageAnomalyThresholdPercentage");
+        
         var memoryUsageThreshold = builder.Configuration.GetValue<double>("AnomalyDetectionConfig:MemoryUsageThresholdPercentage");
-        var cpuUsageThreshold = builder.Configuration.GetValue<double>("AnomalyDetectionConfig:CpuUsageThresholdPercentage");
+        
+        var cpuUsageThreshold = builder.Configuration.GetValue<double>("AnomalyDetectionConfig:CpuUsageThresholdPercentage") * 100;
 
         messageConsumer.Subscribe("ServerStatistics.*", async void (stats) =>
         {
@@ -38,8 +40,7 @@ public static class Program
                 Console.WriteLine($"Received from {stats.ServerIdentifier}: CPU {Math.Round(stats.CpuUsage, 2)}%, Mem {Math.Round(stats.MemoryUsage, 2)}MB");
 
                 await persistence.SaveAsync(stats);
-
-                // ---- Anomaly checks (need previous reading) ----
+                
                 if (previousReadings.TryGetValue(stats.ServerIdentifier, out var previous))
                 {
                     if (stats.MemoryUsage > previous.MemoryUsage * (1 + memoryAnomalyThreshold))
@@ -66,8 +67,7 @@ public static class Program
                         });
                     }
                 }
-
-                // ---- High usage checks (current reading only) ----
+                
                 var memoryUsagePercent = stats.MemoryUsage / (stats.MemoryUsage + stats.AvailableMemory);
                 if (memoryUsagePercent > memoryUsageThreshold)
                 {
@@ -91,7 +91,6 @@ public static class Program
                     });
                 }
 
-                // آخر شي دايماً: حدّثي القراءة السابقة
                 previousReadings[stats.ServerIdentifier] = stats;
             }
             catch (Exception e)

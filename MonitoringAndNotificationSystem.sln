@@ -10,6 +10,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Messaging.RabbitMQ", "Messa
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AnomalyDetectionService", "AnomalyDetectionService\AnomalyDetectionService.csproj", "{FCD5C0A0-907B-4C28-AD59-B56A266732D9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventConsumerService", "EventConsumerService\EventConsumerService.csproj", "{04FF1AF8-47FA-49AD-878E-8E108F242476}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -36,5 +38,9 @@ Global
 		{FCD5C0A0-907B-4C28-AD59-B56A266732D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FCD5C0A0-907B-4C28-AD59-B56A266732D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FCD5C0A0-907B-4C28-AD59-B56A266732D9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{04FF1AF8-47FA-49AD-878E-8E108F242476}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{04FF1AF8-47FA-49AD-878E-8E108F242476}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{04FF1AF8-47FA-49AD-878E-8E108F242476}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{04FF1AF8-47FA-49AD-878E-8E108F242476}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
