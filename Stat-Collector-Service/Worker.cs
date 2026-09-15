@@ -7,7 +7,7 @@ namespace Stat_Collector_Service;
 public class Worker(
     ILogger<Worker> logger,
     ISystemStatsProvider statProvider,
-    IConfiguration configuration, 
+    IConfiguration configuration,
     IMessagePublisher messagePublisher)
     : BackgroundService
 {
@@ -15,19 +15,16 @@ public class Worker(
     {
         var intervalSeconds = configuration.GetValue("ServerStatisticsConfig:SamplingIntervalSeconds", 60);
         var serverIdentifier = configuration.GetValue<string>("ServerStatisticsConfig:ServerIdentifier", "linux1");
-        
+
         while (!stoppingToken.IsCancellationRequested)
-        {
             try
             {
                 if (logger.IsEnabled(LogLevel.Information))
-                {
                     logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
-                }
 
-                var serverStatistics = new ServerStatistics()
+                var serverStatistics = new ServerStatistics
                 {
-                    ServerIdentifier =  serverIdentifier,
+                    ServerIdentifier = serverIdentifier,
                     AvailableMemory = statProvider.GetAvailableMemory(),
                     CpuUsage = statProvider.GetCpuUsage(),
                     MemoryUsage = statProvider.GetMemoryUsage(),
@@ -43,6 +40,5 @@ public class Worker(
             {
                 await Task.Delay(TimeSpan.FromSeconds(intervalSeconds), stoppingToken);
             }
-        }
     }
 }

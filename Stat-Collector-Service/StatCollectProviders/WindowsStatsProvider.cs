@@ -1,14 +1,12 @@
-﻿using System;
-using System.Diagnostics;
-using System.Threading;
+﻿using System.Diagnostics;
 using Stat_Collector_Service.StatCollectProviders.Interfaces;
 
 namespace Stat_Collector_Service.StatCollectProviders;
 
 public class WindowsStatsProvider : ISystemStatsProvider
 {
-    private readonly PerformanceCounter _cpuCounter;
     private readonly PerformanceCounter _availableMemoryCounter;
+    private readonly PerformanceCounter _cpuCounter;
 
     public WindowsStatsProvider()
     {
@@ -16,7 +14,7 @@ public class WindowsStatsProvider : ISystemStatsProvider
         _cpuCounter = new PerformanceCounter("Processor", "% Processor Time", "_Total");
         _cpuCounter.NextValue();
     }
-    
+
     public double GetAvailableMemory()
     {
         var availableBytes = _availableMemoryCounter.NextValue();
@@ -27,9 +25,9 @@ public class WindowsStatsProvider : ISystemStatsProvider
     {
         var totalMemoryBytes = GC.GetGCMemoryInfo().TotalAvailableMemoryBytes;
         var totalMemoryMb = totalMemoryBytes / (1024.0 * 1024.0);
-    
+
         var availableMemoryMb = GetAvailableMemory();
-    
+
         return totalMemoryMb - availableMemoryMb;
     }
 
