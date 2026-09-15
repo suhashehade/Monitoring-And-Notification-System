@@ -7,9 +7,11 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\Messaging.Abstractions\Messaging.Abstractions.csproj"/>
-        <ProjectReference Include="..\Messaging.RabbitMQ\Messaging.RabbitMQ.csproj"/>
-        <ProjectReference Include="..\Shared\Shared.csproj"/>
+        <ProjectReference Include="..\Messaging.Abstractions\Messaging.Abstractions.csproj" />
+        <ProjectReference Include="..\Messaging.RabbitMQ\Messaging.RabbitMQ.csproj" />
+        <ProjectReference Include="..\Shared\Shared.csproj" />
+        <ProjectReference Include="..\Persistence.Abstractions\Persistence.Abstractions.csproj" />
+        <ProjectReference Include="..\Persistence.MongoDB\Persistence.MongoDB.csproj" />
     </ItemGroup>
 
 </Project>

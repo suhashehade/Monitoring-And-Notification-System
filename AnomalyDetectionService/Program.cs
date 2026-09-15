@@ -1,5 +1,7 @@
 using Messaging;
 using Messaging.RabbitMQ;
+using Persistence.Abstractions;
+using Persistence.MongoDB;
 using Shared.Models;
 
 namespace AnomalyDetectionService;
